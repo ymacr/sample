@@ -28,15 +28,42 @@ body{
 
 <body>
 <div id="text">値は？</div>
+
+<div style="text-align:center;margin:2em auto;">
+  <div id="indicator">
+    <div id="indicator-label">0 %</div>
+    <div id="indicator-bar">&nbsp;</div>
+  </div>
+  <div style="display:table;margin:0.5em auto 1em;">
+    <div id="indicator-desc">
+      <p style="padding:0 1em;">この囲いの中をぐぐっと押すと<br />強弱に応じてバーが伸び縮みします</p>
+      <p style="padding:0 1em;">上手く反応しない場合は<br />指を左右に傾けてください
+    </div>
+  </div>
+</div>
+
 </body>
 
 
 <script type="text/javascript">
 $(window).ready(function() {
-  document.body.addEventListener("touchmove", function(e) {
-     ChangeTxt("js force - " + e.touches[0].force)
-  });
+  var indicate = function(e) {
+    if (e == null || e.touches == null || e.touches.length <= 0 || e.touches[0].force == null) {
+      $("#indicator-label").text("0 %");
+      $("#indicator-bar").width(0);
+      $("#indicator-desc").css({backgroundColor:"#fff"});
+      return;
+    }
+    var touch = e.touches[0];
+    $("#indicator-label").text(Math.round(touch.force * 100) + "%");
+    $("#indicator-bar").width((touch.force * 100) + "%");
+    $("#indicator-desc").css({backgroundColor:"rgba(231,31,115," + (touch.force / 5) + ")"});
+  }
+  $("#indicator-desc").on("touchstart", function(e) { indicate(e.originalEvent); });
+  $("#indicator-desc").on("touchmove", function(e) { indicate(e.originalEvent); });
+  $("#indicator-desc").on("touchend", function(e) { indicate(e.originalEvent); });
 });
 </script>
+
 
 </html>
