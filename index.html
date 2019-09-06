@@ -5,14 +5,38 @@
 <title>GitHub Pages Sample</title>
 </head>
 
-<body>
-<main>
-  <h1>GitHub Pages サンプル</h1>
-  <a href="http://www.yahoo.co.jp/"><button>Y!Jへ</button></a>
-</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script>
-console.log('GitHub Pages Sample');
+<script type="text/javascript">
+<!--
+
+function ChangeTxt(txt) {
+
+    document.getElementById("text").innerHTML=txt;
+}
+-->
 </script>
+<style type="text/css">
+<!--
+body{
+    padding:10px;
+    font-size:12px;
+}
+-->
+</style>
+</head>
+
+<body>
+<div id="text">値は？</div>
 </body>
+
+
+<script type="text/javascript">
+$(window).ready(function() {
+  document.body.addEventListener("touchmove", function(e) {
+     ChangeTxt("js force - " + e.touches[0].force)
+  });
+});
+</script>
+
 </html>
